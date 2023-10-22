@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>My Contacts</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+<div class="w3-container w3-grey" style="position:relative">
+ <a class="w3-btn w3-circle w3-xlarge w3-right w3-grey" style="position:absolute;top:126px;left:42px;"><i>+</i></a>
+ <h2 class="w3-jumbo w3-text-white" style="text-shadow:1px 1px 0 #FFFFFF">My Contacts</h2>
+</div>
+
+<div class="w3-white w3-animate-zoom" style="padding:20px 50px;background-color:white;
+background-size:cover;">
+
+<div class="w3-section w3-row-padding">
+
+ <div class="w3-third w3-container w3-center">
+    <div class="w3-card-4">
+      <div class="w3-container">
+      <p class="w3-jumbo">👩‍💻👨‍💻</p>
+      </div>
+      <div class="w3-container w3-grey" style="position:relative">
+      <p><a href="{% url 'createcontact' %}">Add New Contact</a></p>
+      </div>
+    </div>
+    </div>
+
+{% for contact in contacts %}
+<div class="w3-twothird w3-right">
+    <div class="w3-card-4">
+      <div class="w3-display-container">
+        <img src="https://static-00.iconduck.com/assets.00/contacts-emoji-384x512-9j27vuke.png" alt="contact" style="width:20%">
+        <div class="w3-display-bottomright w3-container w3-large w3-text-black"><p>{{ contact.name }}</p></div>
+      </div>
+      <div class="w3-container w3-light-grey">
+	<ul>
+        <li>Address: {{ contact.address }}</li>
+	<li>Profession: {{ contact.profession }}</li>
+	<li>Telnumber: {{ contact.telnumber }}</li>
+	</ul>
+	<form action="{% url 'delete_contact' contact.pk %}" method="post">
+    		{% csrf_token %}
+		<h6><button class="w3-button w3-opacity w3-hover-opacity-off w3-right" type="submit">Delete Contact</button></h6>
+	</form>
+        <h6><button class="w3-button w3-opacity w3-hover-opacity-off w3-right"><a href="{% url 'edit' contact.pk %}">Edit Contact</a></button></h6>
+      </div>
+    </div>
+  </div> 
+{% endfor %}
+</div>
+</div>
+</div>
+</body>
+</html>
